@@ -3,6 +3,7 @@ from threading import Thread
 
 from spixy.irc.client import Client
 from spixy.plugins.decision import DecisionPlugin
+from spixy.plugins.oldurl import OldUrlPlugin
 
 class RawSender(Thread):
     def __init__(self, client):
@@ -33,7 +34,9 @@ if __name__ == '__main__':
     console = RawSender(client)
     client.connect()
     decision = DecisionPlugin(config, client)
+    oldurl = OldUrlPlugin(config, client)
     console.start()
     console.join()
     decision.close()
+    oldurl.close()
     client.close()
